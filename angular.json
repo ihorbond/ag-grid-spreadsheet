@@ -82,6 +82,24 @@
           }
         }
       }
-    }},
-  "defaultProject": "ClientApp"
+    }
+  },
+  "defaultProject": "ClientApp",
+  "schematics": {
+    "@schematics/angular:component": {
+      "spec": false
+    },
+    "@schematics/angular:service": {
+      "spec": false
+    },
+    "@schematics/angular:pipe": {
+      "spec": false
+    },
+    "@schematics/angular:guard": {
+      "spec": false
+    },
+    "@schematics/angular:directive": {
+      "spec": false
+    }
+  }
 }
