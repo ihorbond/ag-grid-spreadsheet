@@ -8,10 +8,10 @@ import { environment as env } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ListedPropertyTypeService {
-
-  constructor(private _http: HttpClient) { }
-
+  
   private baseUrl: string = env + 'api/v1/listedpropertytypes';
+  
+  constructor(private _http: HttpClient) { }
 
   public getAll(): Observable<ListedPropertyType[]> {
     return this._http.get<ListedPropertyType[]>(this.baseUrl);
