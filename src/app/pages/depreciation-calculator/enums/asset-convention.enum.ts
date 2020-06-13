@@ -1,3 +1,3 @@
-export enum AssetConvention {
+export enum AssetConventionEnum {
     
 }
