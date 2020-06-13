@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
+import { ListedPropertyTypeService } from '../../services/listed-property-type.service';
+import { ListedPropertyType } from '../../models/listed-property-type';
 
 @Component({
   selector: 'kod-calculator',
@@ -20,6 +22,8 @@ export class CalculatorComponent implements OnInit {
           buttons: ['reset', 'apply']}, editable: true}
   ];
   */
+  private propTypes: ListedPropertyType[];
+
   columnDefs = [
     { headerName: 'Make', field: 'make', editable: true, rowGroup: true },
     { headerName: 'Life', field: 'model', editable: true }
@@ -36,10 +40,18 @@ export class CalculatorComponent implements OnInit {
 
   rowData: any;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private _listedPropTypeService: ListedPropertyTypeService) {
   }
 
   ngOnInit() {
+    this._listedPropTypeService.getAll().subscribe(proptypes => {
+      this.propTypes = this.propTypes;
+    });
+
+    console.log(this.propTypes);
+
     this.rowData = this.http.get('https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/sample-data/smallRowData');
   }
 
