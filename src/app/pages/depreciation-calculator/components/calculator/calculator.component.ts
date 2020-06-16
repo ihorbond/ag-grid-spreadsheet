@@ -47,10 +47,9 @@ export class CalculatorComponent implements OnInit {
 
   ngOnInit() {
     this._listedPropTypeService.getAll().subscribe(proptypes => {
-      this.propTypes = this.propTypes;
+      this.propTypes = proptypes;
+      console.log("prop types", this.propTypes);
     });
-
-    console.log(this.propTypes);
 
     this.rowData = this.http.get('https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/sample-data/smallRowData');
   }
