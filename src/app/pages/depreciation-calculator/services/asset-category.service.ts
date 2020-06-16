@@ -10,7 +10,7 @@ import { AssetCategory } from '../models/asset-category';
 })
 export class AssetCategoryService {
 
-  private baseUrl: string = env + 'api/v1/assetcategories';
+  private baseUrl: string = env.apiBase + 'api/v1/assetcategories';
 
   constructor(private _http: HttpClient) { }
   
