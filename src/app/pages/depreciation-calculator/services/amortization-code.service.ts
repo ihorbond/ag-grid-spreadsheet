@@ -10,7 +10,7 @@ import { environment as env } from 'src/environments/environment';
 })
 export class AmortizationCodeService {
 
-  private baseUrl: string = env + 'api/v1/amortizationcodes';
+  private baseUrl: string = env.apiBase + 'api/v1/amortizationcodes';
 
   constructor(private _http: HttpClient) { }
 

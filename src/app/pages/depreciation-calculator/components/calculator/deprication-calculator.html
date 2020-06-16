@@ -1,0 +1,14 @@
+
+<button (click)="getSelectedRows()">Get Selected Rows</button>
+
+<ag-grid-angular
+    #agGrid
+    style="width: 600px; height: 500px;"
+    class="ag-theme-alpine"
+    [autoGroupColumnDef]="autoGroupColumnDef"
+    [rowData]="rowData | async"
+    [columnDefs]="columnDefs"
+    rowSelection="multiple"
+    >
+   
+</ag-grid-angular>

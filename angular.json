@@ -101,5 +101,8 @@
     "@schematics/angular:directive": {
       "spec": false
     }
+  },
+  "cli": {
+    "analytics": "8f864509-8e54-4936-bc97-745c7b0f2272"
   }
 }

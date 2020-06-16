@@ -8,7 +8,7 @@ import { AssetMethodCategory } from '../models/asset-method-category';
   providedIn: 'root'
 })
 export class AssetMethodCategoryService {
-  private baseUrl: string = env + 'api/v1/assetmethodcategories';
+  private baseUrl: string = env.apiBase + 'api/v1/assetmethodcategories';
   
   constructor(private _http: HttpClient) { }
 

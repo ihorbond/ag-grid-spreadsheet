@@ -9,7 +9,7 @@ import { environment as env } from 'src/environments/environment';
 })
 export class PropertyTypeCodeService {
 
-  private baseUrl: string = env + 'api/v1/propertytypecodes';
+  private baseUrl: string = env.apiBase + 'api/v1/propertytypecodes';
 
   constructor(private _http:HttpClient) { }
 
