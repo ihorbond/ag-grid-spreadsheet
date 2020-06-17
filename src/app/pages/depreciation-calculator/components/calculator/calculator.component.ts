@@ -5,6 +5,15 @@ import { ListedPropertyTypeService } from '../../services/listed-property-type.s
 import { ListedPropertyType } from '../../models/listed-property-type';
 import { AssetService } from '../../services/asset.service';
 import { Asset } from '../../models/asset';
+import { AmortizationCodeService } from '../../services/amortization-code.service';
+import { AssetCategoryService } from '../../services/asset-category.service';
+import { AssetMethodCategoryService } from '../../services/asset-method-category.service';
+import { PropertyTypeCodeService } from '../../services/property-type-code.service';
+import { forkJoin } from 'rxjs';
+import { PropertyTypeCode } from '../../models/property-type-code';
+import { AssetCategory } from '../../models/asset-category';
+import { AssetMethodCategory } from '../../models/asset-method-category';
+import { AmortizationCode } from '../../models/amortization-code';
 
 @Component({
   selector: 'kod-calculator',
@@ -71,29 +80,56 @@ export class CalculatorComponent implements OnInit {
   ];
 
   //private propTypes: ListedPropertyType[];
-  private propTypes: Asset[];
+  private assets: Asset[];
+  private propTypeCodes: PropertyTypeCode[];
+  private amortizationCodes: AmortizationCode[];
+  private listedPropTypes: ListedPropertyType[];
+  private assetCategories: AssetCategory[];
+  private assetMethodCategories: AssetMethodCategory[];
 
-  rowData: any;
+  public rowData: any;
 
   constructor(
-    private http: HttpClient,
+    private _assetService: AssetService,
     private _listedPropTypeService: ListedPropertyTypeService,
-    private _assetService: AssetService) {
-  }
+    private _amortizationCodeService: AmortizationCodeService,
+    private _assetCategoryService: AssetCategoryService,
+    private _assetMethodCategoryService: AssetMethodCategoryService,
+    private _propertyTypeCodeService: PropertyTypeCodeService,
+  ) {}
 
 
   ngOnInit() {
-    //this._listedPropTypeService.getAll().subscribe(proptypes => {
-      this._assetService.getAll().subscribe((proptypes) => {
-      this.propTypes = proptypes;
-      console.log("prop types", this.propTypes);
-      this.rowData = this.propTypes;
-      this.agGrid.api.sizeColumnsToFit();
-    });
-
+    this.loadData();
   }
 
-  getSelectedRows() {
+  private loadData(): void {
+    const propTypeCodes$ = this._propertyTypeCodeService.getAll();
+    const amortizationCodes$ = this._amortizationCodeService.getAll();
+    const listedPropTypes$ = this._listedPropTypeService.getAll();
+    const assetCategories$ = this._assetCategoryService.getAll();
+    const assetMethodCat$ = this._assetMethodCategoryService.getAll();
+    const assets$ = this._assetService.getAll();
+    forkJoin(propTypeCodes$, amortizationCodes$, listedPropTypes$, assetCategories$, assetMethodCat$, assets$).subscribe(res => {
+      console.log("data", res);
+      this.propTypeCodes = res[0];
+      this.amortizationCodes = res[1];
+      this.listedPropTypes = res[2];
+      this.assetCategories = res[3];
+      this.assetMethodCategories = res[4];
+      this.assets = res[5];
+      console.log("assets", this.assets);
+
+      this.setupGrid();
+    });
+  }
+
+  private setupGrid(): void {
+    this.rowData = this.assets;
+    this.agGrid.api.sizeColumnsToFit();
+  }
+
+  public getSelectedRows(): void {
     const selectedNodes = this.agGrid.api.getSelectedNodes();
     const selectedData = selectedNodes.map(node => node.data);
     const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
