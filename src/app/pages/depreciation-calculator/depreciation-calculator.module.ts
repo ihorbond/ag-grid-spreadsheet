@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CalculatorComponent } from './components/calculator/deprication-calculator.component';
+import { CalculatorComponent } from './components/calculator/calculator.component';
 import { AgGridModule } from 'ag-grid-angular';
 
 
