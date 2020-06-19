@@ -6,12 +6,12 @@ import { DepreciationCalculatorModule } from './pages/depreciation-calculator/de
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    DepreciationCalculatorModule
+    DepreciationCalculatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

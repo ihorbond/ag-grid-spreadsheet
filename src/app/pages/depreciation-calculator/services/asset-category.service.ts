@@ -17,4 +17,8 @@ export class AssetCategoryService {
   public getAll(): Observable<AssetCategory[]> {
     return this._http.get<AssetCategory[]>(this.baseUrl);
   }
+
+  public getByID(): Observable<AssetCategory[]> {
+    return this._http.get<AssetCategory[]>(this.baseUrl);
+  }
 }

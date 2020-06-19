@@ -2,6 +2,7 @@
 <button (click)="getSelectedRows()">Get Selected Rows</button>
 <ag-grid-angular
     #agGrid
+    [frameworkComponents]='frameworkComponents'
     style="width: 4100px; height:900px;"
     class="ag-theme-alpine"
     [autoGroupColumnDef]="autoGroupColumnDef"
