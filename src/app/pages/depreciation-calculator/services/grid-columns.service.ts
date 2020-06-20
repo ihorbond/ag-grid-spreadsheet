@@ -57,7 +57,7 @@ export class GridColumnsService {
       this.propTypeCodeMappings = this.createMapping(this.propTypeCodes, 'id', 'code');
       this.amortizationCodeMappings = this.createMapping(this.amortizationCodes, 'id', 'code');
       this.listedPropTypeMappings = this.createMapping(this.listedPropTypes, 'id', 'description');
-      this.assetCategoryMappings = this.createMapping(this.assetMethodCategories, 'id', 'description');
+      this.assetCategoryMappings = this.createMapping(this.assetCategories, 'id', 'description');
       this.assetMethodCategoryMappings = this.createMapping(this.assetMethodCategories, 'id', 'description');
 
       return [
@@ -134,9 +134,15 @@ export class GridColumnsService {
                     }
                 },
                 {
-                    headerName: 'Business Percentage', field: 'businessPercentage', sortable: true, filter: true, filterParams: {
+                    headerName: 'Business Percentage', 
+                    field: 'businessPercentage', 
+                    sortable: true, 
+                    filter: true, 
+                    editable: true, 
+                    resizable: true, 
+                    filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    }, 
                 },
                 {
                     headerName: 'Listed Property Type', 
@@ -162,27 +168,51 @@ export class GridColumnsService {
                     refData: this.assetMethodCategoryMappings,
                     filter: true, filterParams: {
                         buttons: ['reset', 'apply']
-                    }, 
+                    }
                 },
                 {
-                    headerName: 'Life', field: 'life', sortable: true, filter: true, filterParams: {
+                    headerName: 'Life', 
+                    field: 'life', 
+                    sortable: true, 
+                    filter: true, 
+                    resizable: true, 
+                    editable: true, 
+                    filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    }
                 },
                 {
-                    headerName: 'Prior Regular Depreciation', field: 'priorRegDepreciation', sortable: true, filter: true, filterParams: {
+                    headerName: 'Prior Regular Depreciation', 
+                    field: 'priorRegDepreciation', 
+                    sortable: true, 
+                    filter: true, 
+                    editable: true, 
+                    resizable: true, 
+                    filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    }
                 },
                 {
-                    headerName: 'Prior Bonus Depreciation', field: 'priorBonusDepriciation', sortable: true, filter: true, filterParams: {
+                    headerName: 'Prior Bonus Depreciation', 
+                    field: 'priorBonusDepriciation', 
+                    sortable: true, 
+                    filter: true, 
+                    editable: true, 
+                    resizable: true, 
+                    filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    }
                 },
                 {
-                    headerName: 'Prior Sec 179 Expense', field: 'priorExpSec179', sortable: true, filter: true, filterParams: {
+                    headerName: 'Prior Sec 179 Expense', 
+                    field: 'priorExpSec179', 
+                    sortable: true, 
+                    filter: true, 
+                    editable: true, 
+                    resizable: true, 
+                    filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    }
                 },
                 {
                     headerName: 'Property Type (Code Section)', 
