@@ -122,13 +122,34 @@ export class GridColumnsService {
                     headerName: 'Date Placed in Service', 
                     field: 'dateInService', 
                     sortable: true, 
-                    filter: true, 
+                    //filter: true, 
+                    filter: 'agDateColumnFilter',
+                    filterParams: {
+                    comparator: function(filterLocalDateAtMidnight, cellValue) {
+                        var dateAsString = cellValue;
+                        var dateParts = dateAsString.split('/');
+                        var cellDate = new Date(
+                        Number(dateParts[2]),
+                        Number(dateParts[1]) - 1,
+                        Number(dateParts[0])
+                        );
+                        if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
+                        return 0;
+                        }
+                        if (cellDate < filterLocalDateAtMidnight) {
+                        return -1;
+                        }
+                        if (cellDate > filterLocalDateAtMidnight) {
+                        return 1;
+                        }
+                    },
+                    },
                     editable: true, 
                     resizable: true, 
                     cellRenderer: 'dateTimeRenderer',
-                    filterParams: {
-                        buttons: ['reset', 'apply']
-                    }, 
+                    //filterParams: {
+                    //    buttons: ['reset', 'apply']
+                    //}
                 },
                 {
                     headerName: 'Cost', 
