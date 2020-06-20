@@ -146,7 +146,7 @@ export class GridColumnsService {
                     },
                     },
                     editable: true, 
-                    //cellEditor: 'datePicker',
+                    cellEditor: 'datePicker',
                     cellRenderer: 'dateTimeRenderer',
                     resizable: true, 
                     //filterParams: {

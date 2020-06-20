@@ -8,7 +8,7 @@ import { Asset } from '../../models/asset';
 //other
 import { DateTimeRenderer } from '../../cellRenderers/DateTimeRenderer';
 import { forkJoin } from 'rxjs';
-import * as $ from "jquery";
+import { getDatePicker } from 'src/app/pages/depreciation-calculator/helpers/datepicker';
 
 @Component({
   selector: 'kod-calculator',
@@ -23,7 +23,7 @@ export class CalculatorComponent implements OnInit {
   }
 
   private assets: Asset[];
-  private components;
+  public agGridComponents;
 
   public rowData: any;
   public columnDefs: any;
@@ -31,19 +31,17 @@ export class CalculatorComponent implements OnInit {
   constructor(
     private _assetService: AssetService,
     private _gridColumnsService: GridColumnsService
-  ) { }
-
+  ) { 
+    this.agGridComponents = { datePicker: getDatePicker() };
+  }
 
   ngOnInit() {
-    
-
     const cols$ = this._gridColumnsService.getColDefs();
     const assets$ = this._assetService.getAll();
     forkJoin(cols$, assets$).subscribe(res => {
       console.log("res", res);
       this.columnDefs = res[0];
       this.rowData = res[1];
-      this.components = { datePicker: getDatePicker() };
       this.agGrid.api.sizeColumnsToFit();
     }, console.error);
   }
@@ -54,31 +52,5 @@ export class CalculatorComponent implements OnInit {
     const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
     alert(`Selected nodes: ${selectedDataStringPresentation}`);
   }
-}
 
-
-function getDatePicker() {
-  function Datepicker() {}
-  Datepicker.prototype.init = function(params) {
-    this.eInput = document.createElement('input');
-    this.eInput.value = params.value;
-    this.eInput.classList.add('ag-input');
-    this.eInput.style.height = '100%';
-    ($(this.eInput) as any).datepicker({ dateFormat: 'dd/mm/yy' });
-  };
-  Datepicker.prototype.getGui = function() {
-    return this.eInput;
-  };
-  Datepicker.prototype.afterGuiAttached = function() {
-    this.eInput.focus();
-    this.eInput.select();
-  };
-  Datepicker.prototype.getValue = function() {
-    return this.eInput.value;
-  };
-  Datepicker.prototype.destroy = function() {};
-  Datepicker.prototype.isPopup = function() {
-    return false;
-  };
-  return Datepicker;
 }
