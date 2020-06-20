@@ -242,24 +242,48 @@ export class GridColumnsService {
                     }, 
                 },
                 {
-                    headerName: 'Asset Convention', field: 'assetConvention', sortable: true, filter: true, filterParams: {
+                    headerName: 'Asset Convention', 
+                    field: 'assetConvention', 
+                    sortable: true, 
+                    filter: true, 
+                    editable: true, 
+                    resizable: true,
+                    filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    }
                 },
                 {
-                    headerName: 'Current Depreciation', field: 'currentDepriciation', sortable: true, filter: true, filterParams: {
+                    headerName: 'Current Depreciation', 
+                    field: 'currentDepriciation', 
+                    sortable: true, 
+                    filter: true, 
+                    editable: true, 
+                    resizable: true, 
+                    filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    }
                 },
                 {
-                    headerName: 'Section 179 Expense for Current Year', field: 'currentYearExpSec179', sortable: true, filter: true, filterParams: {
+                    headerName: 'Section 179 Expense for Current Year', 
+                    field: 'currentYearExpSec179', 
+                    sortable: true,
+                    filter: true, 
+                    editable: true, 
+                    resizable: true, 
+                    filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    } 
                 },
                 {
-                    headerName: 'Bonus Deprication', field: 'bonusDepriciation', sortable: true, filter: true, filterParams: {
+                    headerName: 'Bonus Deprication', 
+                    field: 'bonusDepriciation', 
+                    sortable: true, 
+                    filter: true, 
+                    editable: true, 
+                    resizable: true,
+                    filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    }
                 }
             ]
         }
