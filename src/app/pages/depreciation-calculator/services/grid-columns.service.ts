@@ -12,6 +12,7 @@ import { AssetCategory } from '../models/asset-category';
 import { AssetMethodCategory } from '../models/asset-method-category';
 import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AssetConventionEnum } from '../enums/asset-convention.enum';
 
 
 @Injectable({
@@ -30,6 +31,7 @@ export class GridColumnsService {
   private listedPropTypeMappings;
   private assetCategoryMappings;
   private assetMethodCategoryMappings;
+  private assetConventionMappings;
 
   constructor(
     private _listedPropTypeService: ListedPropertyTypeService,
@@ -59,6 +61,12 @@ export class GridColumnsService {
       this.listedPropTypeMappings = this.createMapping(this.listedPropTypes, 'id', 'description');
       this.assetCategoryMappings = this.createMapping(this.assetCategories, 'id', 'description');
       this.assetMethodCategoryMappings = this.createMapping(this.assetMethodCategories, 'id', 'description');
+      this.assetConventionMappings = Object.values(AssetConventionEnum).filter(isNaN).reduce((obj, val) => {
+        obj[AssetConventionEnum[val]] = val;
+        return obj;
+      }, {});
+
+      console.log(this.assetConventionMappings);
 
       return [
         {
@@ -243,11 +251,14 @@ export class GridColumnsService {
                 },
                 {
                     headerName: 'Asset Convention', 
-                    field: 'assetConvention', 
+                    field: 'conventionId', 
                     sortable: true, 
                     filter: true, 
                     editable: true, 
                     resizable: true,
+                    cellEditor: 'select',
+                    cellEditorParams: { values: this.extractValues(this.assetConventionMappings) },
+                    refData: this.assetConventionMappings,
                     filterParams: {
                         buttons: ['reset', 'apply']
                     }

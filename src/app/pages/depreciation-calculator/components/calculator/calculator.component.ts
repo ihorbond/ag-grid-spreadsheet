@@ -7,6 +7,7 @@ import { Asset } from '../../models/asset';
 
 //other
 import { DateTimeRenderer } from '../../cellRenderers/DateTimeRenderer';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'kod-calculator',
@@ -32,18 +33,14 @@ export class CalculatorComponent implements OnInit {
 
 
   ngOnInit() {
-    this._gridColumnsService.getColDefs().subscribe(cols => {
-      console.log("cols", cols);
-      this.columnDefs = cols;
-      this.setupGrid();
-    });
-  }
-  
-  private setupGrid(): void {
-    this._assetService.getAll()
-      .subscribe( asset=> this.rowData = asset);
-    console.log("assets", this.assets);
-    this.agGrid.api.sizeColumnsToFit();
+    const cols$ = this._gridColumnsService.getColDefs();
+    const assets$ = this._assetService.getAll();
+    forkJoin(cols$, assets$).subscribe(res => {
+      console.log("res", res);
+      this.columnDefs = res[0];
+      this.rowData = res[1];
+      this.agGrid.api.sizeColumnsToFit();
+    }, console.error);
   }
 
   public getSelectedRows(): void {

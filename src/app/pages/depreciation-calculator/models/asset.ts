@@ -1,22 +1,24 @@
+import { AssetConventionEnum } from '../enums/asset-convention.enum';
+
 export class Asset {
     id : number;
-    AssetNumber : number;
-    ActivityCategory : string;
-    AssetCategoryId : number;
-    Description : string;
-    DateInService : string;
-    Cost : number
-    BusinessPercentage : number;
-    ListedPropertyTypeId : number;
-    MethodId : number;
-    Life : number
-    PriorRegDepreciation : number 
-    PriorBonusDepriciation : number
-    PriorExpSec179 : number
-    PropertyTypeCodeId : number;
-    AmortizationCodeId : number;
-    ConventionId : number;
-    CurrentDepriciation : number;
-    CurrentYearExpSec179 : number;
-    BonusDepriciation :  number;
+    assetNumber : number;
+    activityCategory : string;
+    assetCategoryId : number;
+    description : string;
+    dateInService : string;
+    cost : number
+    businessPercentage : number;
+    listedPropertyTypeId : number;
+    methodId : number;
+    life : number
+    priorRegDepreciation : number 
+    priorBonusDepriciation : number
+    priorExpSec179 : number
+    propertyTypeCodeId : number;
+    amortizationCodeId : number;
+    conventionId : number;
+    currentDepriciation : number;
+    currentYearExpSec179 : number;
+    bonusDepriciation :  number;
 }
