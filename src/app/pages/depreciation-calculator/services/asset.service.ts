@@ -17,8 +17,8 @@ export class AssetService {
     return this._http.get<Asset[]>(this.baseUrl);
   }
 
-  public getById(id: number): Observable<Asset[]> {
-    return this._http.get<Asset[]>(`${this.baseUrl}/${id}`);
+  public getById(id: number): Observable<Asset> {
+    return this._http.get<Asset>(`${this.baseUrl}/${id}`);
   }
 }
 
