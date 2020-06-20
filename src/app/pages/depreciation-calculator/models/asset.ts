@@ -6,7 +6,7 @@ export class Asset {
     activityCategory : string;
     assetCategoryId : number;
     description : string;
-    dateInService : string;
+    dateInService : Date;
     cost : number
     businessPercentage : number;
     listedPropertyTypeId : number;
@@ -17,7 +17,7 @@ export class Asset {
     priorExpSec179 : number
     propertyTypeCodeId : number;
     amortizationCodeId : number;
-    conventionId : number;
+    conventionId : AssetConventionEnum;
     currentDepriciation : number;
     currentYearExpSec179 : number;
     bonusDepriciation :  number;

@@ -14,7 +14,6 @@ import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AssetConventionEnum } from '../enums/asset-convention.enum';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -33,13 +32,15 @@ export class GridColumnsService {
   private assetMethodCategoryMappings;
   private assetConventionMappings;
 
+
   constructor(
     private _listedPropTypeService: ListedPropertyTypeService,
     private _amortizationCodeService: AmortizationCodeService,
     private _assetCategoryService: AssetCategoryService,
     private _assetMethodCategoryService: AssetMethodCategoryService,
     private _propertyTypeCodeService: PropertyTypeCodeService
-  ) { }
+  ) { 
+  }
 
   public getColDefs(): Observable<any> {
     
@@ -145,11 +146,12 @@ export class GridColumnsService {
                     },
                     },
                     editable: true, 
-                    resizable: true, 
+                    //cellEditor: 'datePicker',
                     cellRenderer: 'dateTimeRenderer',
+                    resizable: true, 
                     //filterParams: {
                     //    buttons: ['reset', 'apply']
-                    //  }
+                    //}, 
                 },
                 {
                     headerName: 'Cost', 
@@ -333,5 +335,6 @@ export class GridColumnsService {
       return obj;
     }, {});
   }
-
 }
+
+
