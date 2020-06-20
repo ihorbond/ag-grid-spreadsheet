@@ -149,7 +149,7 @@ export class GridColumnsService {
                     cellRenderer: 'dateTimeRenderer',
                     //filterParams: {
                     //    buttons: ['reset', 'apply']
-                    //}
+                    //  }
                 },
                 {
                     headerName: 'Cost', 
