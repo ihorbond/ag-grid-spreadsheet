@@ -107,14 +107,27 @@ export class GridColumnsService {
                     }, editable: true, resizable: true, cellEditor: 'select'
                 },
                 {
-                    headerName: 'Listed Property Type', field: 'listedPropertyTypeId', sortable: true, filter: true, filterParams: {
+                    headerName: 'Listed Property Type', 
+                    field: 'listedPropertyTypeId', 
+                    sortable: true, 
+                    filter: true, filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    }, 
+                    editable: true, 
+                    resizable: true, 
+                    refData: this.createMapping(this.listedPropTypes, 'id', 'description'),
+                    cellEditor: 'select'
                 },
                 {
-                    headerName: 'Method', field: 'methodId', sortable: true, filter: true, filterParams: {
+                    headerName: 'Method', 
+                    field: 'methodId', 
+                    sortable: true, 
+                    filter: true, filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    }, 
+                    editable: true, resizable: true, 
+                    refData: this.createMapping(this.assetMethodCategories, 'id', 'description'),
+                    cellEditor: 'select'
                 },
                 {
                     headerName: 'Life', field: 'life', sortable: true, filter: true, filterParams: {
@@ -150,9 +163,16 @@ export class GridColumnsService {
                     }
                 },
                 {
-                    headerName: 'If Amortization Code Section', field: 'amortizationCodeId', sortable: true, filter: true, filterParams: {
+                    headerName: 'If Amortization Code Section', 
+                    field: 'amortizationCodeId', 
+                    sortable: true, 
+                    filter: true, filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    }, 
+                    editable: true, 
+                    refData: this.createMapping(this.amortizationCodes, 'id', 'code'),
+                    resizable: true, 
+                    cellEditor: 'select'
                 },
                 {
                     headerName: 'Asset Convention', field: 'assetConvention', sortable: true, filter: true, filterParams: {
