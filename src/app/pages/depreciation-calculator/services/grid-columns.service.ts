@@ -25,6 +25,12 @@ export class GridColumnsService {
   private assetCategories: AssetCategory[];
   private assetMethodCategories: AssetMethodCategory[];
 
+  private propTypeCodeMappings;
+  private amortizationCodeMappings;
+  private listedPropTypeMappings;
+  private assetCategoryMappings;
+  private assetMethodCategoryMappings;
+
   constructor(
     private _listedPropTypeService: ListedPropertyTypeService,
     private _amortizationCodeService: AmortizationCodeService,
@@ -47,6 +53,12 @@ export class GridColumnsService {
       this.listedPropTypes = res[2];
       this.assetCategories = res[3];
       this.assetMethodCategories = res[4];
+
+      this.propTypeCodeMappings = this.createMapping(this.propTypeCodes, 'id', 'code');
+      this.amortizationCodeMappings = this.createMapping(this.amortizationCodes, 'id', 'code');
+      this.listedPropTypeMappings = this.createMapping(this.listedPropTypes, 'id', 'description');
+      this.assetCategoryMappings = this.createMapping(this.assetMethodCategories, 'id', 'description');
+      this.assetMethodCategoryMappings = this.createMapping(this.assetMethodCategories, 'id', 'description');
 
       return [
         {
@@ -81,25 +93,45 @@ export class GridColumnsService {
                     editable: true, 
                     resizable: true, 
                     cellEditor: 'select',
-                    refData: this.createMapping(this.assetCategories, 'id', 'description'),
+                    cellEditorParams: { values: this.extractValues(this.assetCategoryMappings) },
+                    refData: this.assetCategoryMappings,
                     filterParams: {
                         buttons: ['reset', 'apply']
                     }
                 },
                 {
-                    headerName: 'Description', field: 'description', sortable: true, filter: true, filterParams: {
+                    headerName: 'Description', 
+                    field: 'description', 
+                    sortable: true, 
+                    filter: true, 
+                    editable: true, 
+                    resizable: true,
+                    filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    }
                 },
                 {
-                    headerName: 'Date Placed in Service', field: 'dateInService', sortable: true, filter: true, filterParams: {
+                    headerName: 'Date Placed in Service', 
+                    field: 'dateInService', 
+                    sortable: true, 
+                    filter: true, 
+                    editable: true, 
+                    resizable: true, 
+                    cellRenderer: 'dateTimeRenderer',
+                    filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select', cellRenderer: 'dateTimeRenderer'
+                    }, 
                 },
                 {
-                    headerName: 'Cost', field: 'cost', sortable: true, filter: true, filterParams: {
+                    headerName: 'Cost', 
+                    field: 'cost', 
+                    sortable: true, 
+                    filter: true, 
+                    editable: true, 
+                    resizable: true, 
+                    filterParams: {
                         buttons: ['reset', 'apply']
-                    }, editable: true, resizable: true, cellEditor: 'select'
+                    }
                 },
                 {
                     headerName: 'Business Percentage', field: 'businessPercentage', sortable: true, filter: true, filterParams: {
@@ -110,24 +142,27 @@ export class GridColumnsService {
                     headerName: 'Listed Property Type', 
                     field: 'listedPropertyTypeId', 
                     sortable: true, 
+                    editable: true, 
+                    resizable: true, 
+                    cellEditor: 'select',
+                    cellEditorParams: { values: this.extractValues(this.listedPropTypeMappings) },
+                    refData: this.listedPropTypeMappings,
                     filter: true, filterParams: {
                         buttons: ['reset', 'apply']
                     }, 
-                    editable: true, 
-                    resizable: true, 
-                    refData: this.createMapping(this.listedPropTypes, 'id', 'description'),
-                    cellEditor: 'select'
                 },
                 {
                     headerName: 'Method', 
                     field: 'methodId', 
                     sortable: true, 
+                    editable: true,
+                    resizable: true, 
+                    cellEditor: 'select',
+                    cellEditorParams: { values: this.extractValues(this.assetMethodCategoryMappings) },
+                    refData: this.assetMethodCategoryMappings,
                     filter: true, filterParams: {
                         buttons: ['reset', 'apply']
                     }, 
-                    editable: true, resizable: true, 
-                    refData: this.createMapping(this.assetMethodCategories, 'id', 'description'),
-                    cellEditor: 'select'
                 },
                 {
                     headerName: 'Life', field: 'life', sortable: true, filter: true, filterParams: {
@@ -157,7 +192,8 @@ export class GridColumnsService {
                     editable: true, 
                     resizable: true, 
                     cellEditor: 'select',
-                    refData: this.createMapping(this.propTypeCodes, 'id', 'code'),
+                    cellEditorParams: { values: this.extractValues(this.propTypeCodeMappings) },
+                    refData: this.propTypeCodeMappings,
                     filterParams: {
                       buttons: ['reset', 'apply']
                     }
@@ -166,13 +202,14 @@ export class GridColumnsService {
                     headerName: 'If Amortization Code Section', 
                     field: 'amortizationCodeId', 
                     sortable: true, 
+                    editable: true, 
+                    resizable: true, 
+                    cellEditor: 'select',
+                    cellEditorParams: { values: this.extractValues(this.amortizationCodeMappings) },
+                    refData: this.amortizationCodeMappings,
                     filter: true, filterParams: {
                         buttons: ['reset', 'apply']
                     }, 
-                    editable: true, 
-                    refData: this.createMapping(this.amortizationCodes, 'id', 'code'),
-                    resizable: true, 
-                    cellEditor: 'select'
                 },
                 {
                     headerName: 'Asset Convention', field: 'assetConvention', sortable: true, filter: true, filterParams: {
@@ -200,11 +237,15 @@ export class GridColumnsService {
     }));
   }
 
-  private createMapping(items: any, key: string, field: string): void {
+  private extractValues(mapping: any):string[] {
+    return Object.keys(mapping);
+  }
+
+  private createMapping(items: any[], key: string, field: string): any {
     return items.reduce((obj, item) => {
       obj[item[key]] = item[field].toString();
       return obj;
-    }, {}) as any;
+    }, {});
   }
 
 }
