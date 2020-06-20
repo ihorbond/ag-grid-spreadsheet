@@ -38,9 +38,11 @@ export class CalculatorComponent implements OnInit {
       this.setupGrid();
     });
   }
-
+  
   private setupGrid(): void {
-    this.rowData = this.assets;
+    this._assetService.getAll()
+      .subscribe( asset=> this.rowData = asset);
+    console.log("assets", this.assets);
     this.agGrid.api.sizeColumnsToFit();
   }
 
