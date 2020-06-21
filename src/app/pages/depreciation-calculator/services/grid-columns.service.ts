@@ -144,14 +144,12 @@ export class GridColumnsService {
                         return 1;
                         }
                     },
+                    buttons: ['reset', 'apply']
                     },
                     editable: true, 
                     cellEditor: 'datePicker',
                     cellRenderer: 'dateTimeRenderer',
-                    resizable: true, 
-                    //filterParams: {
-                    //    buttons: ['reset', 'apply']
-                    //}, 
+                    resizable: true
                 },
                 {
                     headerName: 'Cost', 
