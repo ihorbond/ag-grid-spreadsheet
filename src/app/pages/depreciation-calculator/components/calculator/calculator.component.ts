@@ -70,9 +70,8 @@ export class CalculatorComponent implements OnInit {
     );
   }
   
-
   
-  }
+}
   function getBooleanValue(checkboxSelector) {
   return document.querySelector(checkboxSelector).checked;
   }
