@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 
 import { GridColumnsService } from '../../services/grid-columns.service';
@@ -13,7 +13,8 @@ import { getDatePicker } from 'src/app/pages/depreciation-calculator/helpers/dat
 @Component({
   selector: 'kod-calculator',
   templateUrl: './calculator.component.html',
-  styleUrls: ['./calculator.component.scss']
+  styleUrls: ['./calculator.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CalculatorComponent implements OnInit {
   @ViewChild(AgGridAngular, { static: true }) agGrid: AgGridAngular;
@@ -52,94 +53,5 @@ export class CalculatorComponent implements OnInit {
     const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
     alert(`Selected nodes: ${selectedDataStringPresentation}`);
   }
-
-  onBtnExport() {
-    var params = getParams();
-    if (params.suppressQuotes || params.columnSeparator) {
-      alert(
-        'NOTE: you are downloading a file with non-standard quotes or separators - it may not render correctly in Excel.'
-      );
-    }
-    this.agGrid.api.exportDataAsCsv(params);
-  }
-  
-  onBtnUpdate() {
-    let t = document.querySelector('#csvResult') as HTMLInputElement;
-    t.value = this.agGrid.api.getDataAsCsv(
-      getParams()
-    );
-  }
-  
   
 }
-  function getBooleanValue(checkboxSelector) {
-  return document.querySelector(checkboxSelector).checked;
-  }
-  function getValue(inputSelector) {
-  var text = document.querySelector(inputSelector).value;
-  switch (text) {
-    case 'string':
-      return (
-        'Here is a comma, and a some "quotes". You can see them using the\n' +
-        'api.getDataAsCsv() button but they will not be visible when the downloaded\n' +
-        'CSV file is opened in Excel because string content passed to\n' +
-        'customHeader and customFooter is not escaped.'
-      );
-    case 'array':
-      return [
-        [],
-        [
-          {
-            data: {
-              value: 'Here is a comma, and a some "quotes".',
-              type: 'String',
-            },
-          },
-        ],
-        [
-          {
-            data: {
-              value:
-                'They are visible when the downloaded CSV file is opened in Excel because custom content is properly escaped (provided that suppressQuotes is not set to true)',
-              type: 'String',
-            },
-          },
-        ],
-        [
-          {
-            data: {
-              value: 'this cell:',
-              type: 'String',
-            },
-            mergeAcross: 1,
-          },
-          {
-            data: {
-              value: 'is empty because the first cell has mergeAcross=1',
-              type: 'String',
-            },
-          },
-        ],
-        [],
-      ];
-    case 'none':
-      return;
-    case 'tab':
-      return '\t';
-    case 'true':
-      return true;
-    case 'none':
-      return;
-    default:
-      return text;
-  }
-  }
-  function getParams() {
-  return {
-    suppressQuotes: getValue('#suppressQuotes'),
-    columnSeparator: getValue('#columnSeparator'),
-    customHeader: getValue('#customHeader'),
-    customFooter: getValue('#customFooter'),
-  };
-  }
-
