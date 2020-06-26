@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DateTimeRenderer } from './cellRenderers/DateTimeRenderer';
+import { DateTimeRenderer } from './cell-renderers/datetime-renderer';
 import { CalculatorComponent } from './components/calculator/calculator.component';
 import { AgGridModule } from 'ag-grid-angular';
 

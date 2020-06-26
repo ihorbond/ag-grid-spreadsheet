@@ -1,12 +1,8 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
-
 import { GridColumnsService } from '../../services/grid-columns.service';
 import { AssetService } from '../../services/asset.service';
-import { Asset } from '../../models/asset';
-
-//other
-import { DateTimeRenderer } from '../../cellRenderers/DateTimeRenderer';
+import { DateTimeRenderer } from '../../cell-renderers/datetime-renderer';
 import { forkJoin } from 'rxjs';
 import { getDatePicker } from 'src/app/pages/depreciation-calculator/helpers/datepicker';
 
@@ -14,20 +10,16 @@ import { getDatePicker } from 'src/app/pages/depreciation-calculator/helpers/dat
   selector: 'kod-calculator',
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CalculatorComponent implements OnInit {
   @ViewChild(AgGridAngular, { static: true }) agGrid: AgGridAngular;
 
-  frameworkComponents = {
-    dateTimeRenderer: DateTimeRenderer
-  }
-
-  private assets: Asset[];
   public agGridComponents;
-
   public rowData: any;
   public columnDefs: any;
+  public frameworkComponents = {
+    dateTimeRenderer: DateTimeRenderer
+  }
 
   constructor(
     private _assetService: AssetService,
